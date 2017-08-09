@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Sakaev Alexander](https://up.htmlacademy.ru/javascript/10/user/194741).
-* Наставник: `Неизвестно`.
+* Наставник: [Алексей Хапов] (https://up.htmlacademy.ru/javascript/10/user/id118459).
 
 ---
 
