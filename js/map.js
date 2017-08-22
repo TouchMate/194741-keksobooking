@@ -1,5 +1,6 @@
 'use strict';
 
+
 var TITLES = ['Большая уютная квартира', 'Маленькая неуютная квартира',
   'Огромный прекрасный дворец', 'Маленький ужасный дворец',
   'Красивый гостевой домик', 'Некрасивый негостеприимный домик',
@@ -7,10 +8,12 @@ var TITLES = ['Большая уютная квартира', 'Маленька�
 
 var TYPES = ['flat', 'house', 'bungalo'];
 
-var TIMMINGS = ['12:00', '13:00', '14:00'];
+var TIMINGS = ['12:00', '13:00', '14:00'];
 
 var FEATURES = ['wifi', 'dishwasher', 'parking',
   'washer', 'elevator', 'conditioner'];
+var offers = [];
+
 
 // function getRandomFeatures() {
 //   var randomLength = Math.floor(Math.random() * FEATURES.length) + 1;
@@ -20,57 +23,48 @@ var FEATURES = ['wifi', 'dishwasher', 'parking',
 //
 // }
 
-
-function getAvatar(number) {
-  return 'img/avatars/user0' + number + '.png';
-}
-function getTitle() {
-  return TITLES[Math.floor(Math.random() * TITLES.length) + 1];
-}
 function getRandomNumber(min, max) {
   return Math.floor(Math.random() * max - min + 1) + min;
 }
 
-function getType() {
-  return TITLES[Math.floor(Math.random() * TYPES.length) + 1];
-}
-
-function getTime() {
-  return TIMMINGS[Math.floor(Math.random() * TIMMINGS.length) + 1];
-}
-
-
 for (var i = 1; i <= 8; i++) {
   var locationX = getRandomNumber(300, 900);
   var locationY = getRandomNumber(100, 500);
-  var offers = [
-    {
-      author: {
-        avatar: getAvatar(i)
-      },
-      offer: {
-        title: getTitle(),
-        address: locationX + ', ' + locationY,
-        price: getRandomNumber(1000, 1000000),
-        type: getType(),
-        rooms: getRandomNumber(1, 5),
-        guests: getRandomNumber(1, 10),
-        checkin: getTime(),
-        checkout: getTime(),
-        features: FEATURES[Math.floor(Math.random() * FEATURES.length) + 1],
-        description: '',
-        photos: []
-      },
-      location: {
-        x: locationX,
-        y: locationY
-      }
+  offers.push({
+    author: {
+      avatar: 'img/avatars/user0' + i + '.png',
+    },
+    offer: {
+      title: TITLES[getRandomNumber(1, 8)],
+      address: locationX + ', ' + locationY,
+      price:
+      getRandomNumber(1000, 1000000),
+      type:
+      TYPES[getRandomNumber(1, 3)],
+      rooms:
+      getRandomNumber(1, 5),
+      guests:
+      getRandomNumber(1, 10),
+      checkin:
+      TIMINGS[getRandomNumber(1, 3)],
+      checkout:
+      TIMINGS[getRandomNumber(1, 3)],
+      features:
+      FEATURES[getRandomNumber(1, 3)],
+      description:
+      '',
+      photos:
+      []
+    },
+    location: {
+      x: locationX,
+      y: locationY
     }
-  ];
+  });
 }
 
 /*
-for (var i = 0; i < offers.lenght; i++) {
+for (var i = 0; i < offers.length; i++) {
 var newPinMap = document.innerHTML ='<div class=\'pin\' style=\'left:' + offers[i].location.x + 'px;' +
   'top:' + offers[i].location.y + 'px>' + '<img src=' + offers[i].author.avatar +' class=\'rounded\' width=\'40\' height=\'40\'></div>';
 };
@@ -80,8 +74,7 @@ var newPinMap = document.innerHTML ='<div class=\'pin\' style=\'left:' + offers[
 var pinOnTheMap = document.querySelector('.tokyo_pin-map');
 var fragment = document.createDocumentFragment();
 debugger;
-for (var i = 0; i < offers.lenght; i++) {
-
+for (var i = 0; i < offers.length; i++) {
   var newPinMap = document.createElement('div');
   newPinMap.classList.add('pin');
   newPinMap.style.left = offers[i].location.x + 'px';
