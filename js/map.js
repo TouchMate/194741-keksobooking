@@ -1,215 +1,73 @@
+'use strict';
+
+var TITLES = ['Большая уютная квартира', 'Маленькая неуютная квартира',
+  'Огромный прекрасный дворец', 'Маленький ужасный дворец',
+  'Красивый гостевой домик', 'Некрасивый негостеприимный домик',
+  'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
+
+var TYPES = ['flat', 'house', 'bungalo'];
+
+var TIMMINGS = ['12:00', '13:00', '14:00'];
+
+var FEATURES = ['wifi', 'dishwasher', 'parking',
+  'washer', 'elevator', 'conditioner'];
+
+// function getRandomFeatures() {
+//   var randomLength = Math.floor(Math.random() * FEATURES.length) + 1;
+//   for (var j = 0; j < randomLength; j++) {
+//     console.log(FEATURES[Math.floor(Math.random() * FEATURES.length) + 1]);
+//   }
+//
+// }
 
 
-// var offers = [];
-// var author = {
-//   avatar: [
-//     'url:img/avatars/user01.png', 'url:img/avatars/user02.png', 'url:img/avatars/user03.png',
-//     'url:img/avatars/user04.png', 'url:img/avatars/user05.png', 'url:img/avatars/user06.png',
-//     'url:img/avatars/user07.png', 'url:img/avatars/user08.png'
-//   ]
-// };
-//
-// var TITLES = ['Большая уютная квартира', 'Маленькая неуютная квартира',
-//   'Огромный прекрасный дворец', 'Маленький ужасный дворец',
-//   'Красивый гостевой домик', 'Некрасивый негостеприимный домик',
-//   'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
-// var TIMMINGS = ['12:00', '13:00', '14:00'];
-//
-// var APARTMENT_TYPES = [
-//   'flat', 'house', 'bungalo'
-// ];
-// var APARMENT_FUATERES = ['wifi', 'dishwasher', 'parking',
-//   'washer', 'elevator', 'conditioner'];
-//
-// var location = {
-//   x: Math.floor(Math.random() * 900) + 300,
-//   y: Math.floor(Math.random() * 500) + 100
-// };
-//
-//
-// var price = Math.floor(Math.random() * 1000000) + 1000;
-// var rooms = Math.floor(Math.random() * 5) + 1;
-// var guests = Math.floor(Math.random() * 100) + 1;
-//
+function getAvatar(number) {
+  return 'img/avatars/user0' + number + '.png';
+}
+function getTitle() {
+  return TITLES[Math.floor(Math.random() * TITLES.length) + 1];
+}
+function getRandomNumber(min, max) {
+  return Math.floor(Math.random() * max - min + 1) + min;
+}
 
-var offers = [
-  {
-    author: {
-      avatar: 'img/avatars/user01.png'
-    },
-    offer: {
-      title: 'Большая уютная квартира',
-      address: location.x + ' ' + location.y,
-      price: Math.floor(Math.random() * 1000000) + 1000,
-      type: 'flat',
-      rooms: Math.floor(Math.random() * 5) + 1,
-      guests: Math.floor(Math.random() * 100) + 1,
-      checkin: '12:00',
-      checkout: '12:00',
-      features: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
-      description: '',
-      photos: []
-    },
-    location: {
-      x: Math.floor(Math.random() * 900) + 300,
-      y: Math.floor(Math.random() * 500) + 100
+function getType() {
+  return TITLES[Math.floor(Math.random() * TYPES.length) + 1];
+}
+
+function getTime() {
+  return TIMMINGS[Math.floor(Math.random() * TIMMINGS.length) + 1];
+}
+
+
+for (var i = 1; i <= 8; i++) {
+  var locationX = getRandomNumber(300, 900);
+  var locationY = getRandomNumber(100, 500);
+  var offers = [
+    {
+      author: {
+        avatar: getAvatar(i)
+      },
+      offer: {
+        title: getTitle(),
+        address: locationX + ', ' + locationY,
+        price: getRandomNumber(1000, 1000000),
+        type: getType(),
+        rooms: getRandomNumber(1, 5),
+        guests: getRandomNumber(1, 10),
+        checkin: getTime(),
+        checkout: getTime(),
+        features: FEATURES[Math.floor(Math.random() * FEATURES.length) + 1],
+        description: '',
+        photos: []
+      },
+      location: {
+        x: locationX,
+        y: locationY
+      }
     }
-  },
-  {
-    author: {
-      avatar: 'img/avatars/user02.png'
-    },
-    offer: {
-      title: 'Большая уютная квартира',
-      address: location.x + ' ' + location.y,
-      price: Math.floor(Math.random() * 1000000) + 1000,
-      type: 'flat',
-      rooms: Math.floor(Math.random() * 5) + 1,
-      guests: Math.floor(Math.random() * 100) + 1,
-      checkin: '12:00',
-      checkout: '12:00',
-      features: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
-      description: '',
-      photos: []
-    },
-    location: {
-      x: Math.floor(Math.random() * 900) + 300,
-      y: Math.floor(Math.random() * 500) + 100
-    }
-  },
-  {
-    author: {
-      avatar: 'img/avatars/user03.png'
-    },
-    offer: {
-      title: 'Большая уютная квартира',
-      address: location.x + ' ' + location.y,
-      price: Math.floor(Math.random() * 1000000) + 1000,
-      type: 'flat',
-      rooms: Math.floor(Math.random() * 5) + 1,
-      guests: Math.floor(Math.random() * 100) + 1,
-      checkin: '12:00',
-      checkout: '12:00',
-      features: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
-      description: '',
-      photos: []
-    },
-    location: {
-      x: Math.floor(Math.random() * 900) + 300,
-      y: Math.floor(Math.random() * 500) + 100
-    }
-  },
-  {
-    author: {
-      avatar: 'img/avatars/user04.png'
-    },
-    offer: {
-      title: 'Большая уютная квартира',
-      address: location.x + ' ' + location.y,
-      price: Math.floor(Math.random() * 1000000) + 1000,
-      type: 'flat',
-      rooms: Math.floor(Math.random() * 5) + 1,
-      guests: Math.floor(Math.random() * 100) + 1,
-      checkin: '12:00',
-      checkout: '12:00',
-      features: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
-      description: '',
-      photos: []
-    },
-    location: {
-      x: Math.floor(Math.random() * 900) + 300,
-      y: Math.floor(Math.random() * 500) + 100
-    }
-  },
-  {
-    author: {
-      avatar: 'img/avatars/user05.png'
-    },
-    offer: {
-      title: 'Большая уютная квартира',
-      address: location.x + ' ' + location.y,
-      price: Math.floor(Math.random() * 1000000) + 1000,
-      type: 'flat',
-      rooms: Math.floor(Math.random() * 5) + 1,
-      guests: Math.floor(Math.random() * 100) + 1,
-      checkin: '13:00',
-      checkout: '13:00',
-      features: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
-      description: '',
-      photos: []
-    },
-    location: {
-      x: Math.floor(Math.random() * 900) + 300,
-      y: Math.floor(Math.random() * 500) + 100
-    }
-  },
-  {
-    author: {
-      avatar: 'img/avatars/user06.png'
-    },
-    offer: {
-      title: 'Большая уютная квартира',
-      address: location.x + ' ' + location.y,
-      price: Math.floor(Math.random() * 1000000) + 1000,
-      type: 'flat',
-      rooms: Math.floor(Math.random() * 5) + 1,
-      guests: Math.floor(Math.random() * 100) + 1,
-      checkin: '12:00',
-      checkout: '12:00',
-      features: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
-      description: '',
-      photos: []
-    },
-    location: {
-      x: Math.floor(Math.random() * 900) + 300,
-      y: Math.floor(Math.random() * 500) + 100
-    }
-  },
-  {
-    author: {
-      avatar: 'img/avatars/user07.png'
-    },
-    offer: {
-      title: 'Большая уютная квартира',
-      address: location.x + ' ' + location.y,
-      price: Math.floor(Math.random() * 1000000) + 1000,
-      type: 'flat',
-      rooms: Math.floor(Math.random() * 5) + 1,
-      guests: Math.floor(Math.random() * 100) + 1,
-      checkin: '14:00',
-      checkout: '14:00',
-      features: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
-      description: '',
-      photos: []
-    },
-    location: {
-      x: Math.floor(Math.random() * 900) + 300,
-      y: Math.floor(Math.random() * 500) + 100
-    }
-  },
-  {
-    author: {
-      avatar: 'img/avatars/user08.png'
-    },
-    offer: {
-      title: 'Большая уютная квартира',
-      address: location.x + ' ' + location.y,
-      price: Math.floor(Math.random() * 1000000) + 1000,
-      type: 'flat',
-      rooms: Math.floor(Math.random() * 5) + 1,
-      guests: Math.floor(Math.random() * 100) + 1,
-      checkin: '13:00',
-      checkout: '13:00',
-      features: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
-      description: '',
-      photos: []
-    },
-    location: {
-      x: Math.floor(Math.random() * 900) + 300,
-      y: Math.floor(Math.random() * 500) + 100
-    }
-  }
-];
+  ];
+}
 
 /*
 for (var i = 0; i < offers.lenght; i++) {
@@ -218,6 +76,7 @@ var newPinMap = document.innerHTML ='<div class=\'pin\' style=\'left:' + offers[
 };
 */
 
+/*
 var pinOnTheMap = document.querySelector('.tokyo_pin-map');
 var fragment = document.createDocumentFragment();
 debugger;
@@ -231,4 +90,5 @@ for (var i = 0; i < offers.lenght; i++) {
   fragment.appendChild(newPinMap);
 }
 pinOnTheMap.appendChild(fragment);
+*/
 
