@@ -71,12 +71,37 @@ var fragment = document.createDocumentFragment();
 for (var q = 0; q < offers.length; q++) {
   var newPinMap = document.createElement('div');
   newPinMap.classList.add('pin');
-  newPinMap.style.left = offers[q].location['x'] - 24 + 'px';
-  newPinMap.style.top = offers[q].location['y'] - 75 + 'px';
+  newPinMap.style.left = offers[q].location['x'] - 37.5 + 'px';
+  newPinMap.style.top = offers[q].location['y'] - 94 + 'px';
   newPinMap.innerHTML = '<img src=' + offers[q].author.avatar + ' class =\'rounded\' width = \'40\' height=\'40\'>';
   fragment.appendChild(newPinMap);
 }
 pinOnTheMap.appendChild(fragment);
 
+var offerDialog = document.querySelector('.dialog__panel');
+var dialogPanelTemplate = document.getElementById('lodge-template').content;
+
+function createDialogPanel(panel) {
+  var dialogPanel = dialogPanelTemplate.cloneNode(true);
+  var fragmentFeatures = document.createDocumentFragment();
+  for (var e = 1; e < panel.offer.features.length; e++) {
+    var newFeatures = document.createElement('span');
+    newFeatures.className = 'feature__image feature__image--' + panel.offer.features[e];
+    fragmentFeatures.appendChild(newFeatures);
+  }
+
+  dialogPanel.querySelector('.lodge__title').textContent = panel.offer.title;
+  dialogPanel.querySelector('.lodge__address').textContent = panel.offer.address;
+  dialogPanel.querySelector('.lodge__price').textContent = panel.offer.price + '&#x20bd;/ночь';
+  dialogPanel.querySelector('.lodge__type').textContent = (panel.offer.guests === 'flat') ? 'Квартира' :
+    (panel.offer.guests === 'bungalo') ? 'Бунгало' : 'house';
+  dialogPanel.querySelector('.lodge__rooms-and-guests').textContent = 'Для' + panel.offer.guests + 'гостей в' +
+    panel.offer.rooms + 'комнатах';
+  dialogPanel.querySelector('.lodge__description').textContent = panel.offer.description;
+  return dialogPanel;
+}
 
 
+var fragmentPanel = document.createDocumentFragment();
+fragmentPanel.appendChild(createDialogPanel(offers[0]));
+offerDialog.replaceChild(fragmentPanel, offerDialog.children[1]);
