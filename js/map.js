@@ -56,7 +56,7 @@ for (var i = 1; i <= 8; i++) {
     }
   });
 }
-// console.log(offers.offer.features);
+console.log(offers.offer.features);
 //
 // var newPinMap;
 // for (var k = 0; k < offers.length; k++) {
@@ -84,7 +84,7 @@ function createDialogPanel(panel) {
   var fragmentFeatures = document.createDocumentFragment();
   for (var e = 1; e < 3; e++) {
     var newFeatures = document.createElement('span');
-    newFeatures.className = 'feature__image feature__image--' + offers.offer.features;
+    newFeatures.className = 'feature__image feature__image--' + panel.offer.features[e];
     fragmentFeatures.appendChild(newFeatures);
   }
 
