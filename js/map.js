@@ -12,18 +12,36 @@ var TIMINGS = ['12:00', '13:00', '14:00'];
 
 var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 
-
 function getRandomNumber(min, max) {
   return Math.floor(Math.random() * max - min + 1) + min;
 }
+function shuffle(arra1) {
+  var ctr = arra1.length, temp, index;
+
+  // While there are elements in the array
+  while (ctr > 0) {
+    // Pick a random index
+    index = Math.floor(Math.random() * ctr);
+    // Decrease ctr by 1
+    ctr--;
+    // And swap the last element with it
+    temp = arra1[ctr];
+    arra1[ctr] = arra1[index];
+    arra1[index] = temp;
+  }
+  return arra1;
+}
+
 function getRandomAmount(paramArray) {
   var randomLength = getRandomNumber(1, paramArray.length);
   var arr = [];
-  for (var j = 0; j < randomLength; j++) {
-    arr.push(paramArray[Math.floor(Math.random() * paramArray.length) + 1]);
+  var arrayShuffled = shuffle(paramArray);
+  for (var j = 1; j < randomLength; j++) {
+    arr.push(arrayShuffled[j]);
   }
   return arr;
 }
+
 
 for (var i = 1; i <= 8; i++) {
   var locationX = getRandomNumber(300, 900);
@@ -63,6 +81,7 @@ for (var i = 1; i <= 8; i++) {
 //   'top:' + offers[k].location['y'] + 'px>' + '<img src=' + offers[k].author.avatar +' class=\'rounded\' width=\'40\' height=\'40\'></div>';
 // };
 
+
 var pinOnTheMap = document.querySelector('.tokyo__pin-map');
 var fragment = document.createDocumentFragment();
 for (var q = 0; q < offers.length; q++) {
@@ -89,7 +108,7 @@ function createDialogPanel(panel) {
 
   dialogPanel.querySelector('.lodge__title').textContent = panel.offer.title;
   dialogPanel.querySelector('.lodge__address').textContent = panel.offer.address;
-  dialogPanel.querySelector('.lodge__price').textContent = panel.offer.price + '&#x20bd;/ночь';
+  dialogPanel.querySelector('.lodge__price').textContent = panel.offer.price + &#x20bd;/ночь;
   dialogPanel.querySelector('.lodge__type').textContent = (panel.offer.guests === 'flat') ? 'Квартира' :
     (panel.offer.guests === 'bungalo') ? 'Бунгало' : 'house';
   dialogPanel.querySelector('.lodge__rooms-and-guests').textContent = 'Для' + panel.offer.guests + 'гостей в' +
