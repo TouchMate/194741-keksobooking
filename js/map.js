@@ -12,12 +12,15 @@ var TIMINGS = ['12:00', '13:00', '14:00'];
 
 var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 
+var pinOnTheMap = document.querySelector('.tokyo__pin-map');
+
+var fragment = document.createDocumentFragment();
+
 function getRandomNumber(min, max) {
   return Math.floor(Math.random() * max - min + 1) + min;
 }
 function shuffle(arra1) {
   var ctr = arra1.length, temp, index;
-
   // While there are elements in the array
   while (ctr > 0) {
     // Pick a random index
@@ -41,7 +44,6 @@ function getRandomAmount(paramArray) {
   }
   return arr;
 }
-
 
 for (var i = 1; i <= 8; i++) {
   var locationX = getRandomNumber(300, 900);
@@ -74,21 +76,13 @@ for (var i = 1; i <= 8; i++) {
   });
 }
 
-//
-// var newPinMap;
-// for (var k = 0; k < offers.length; k++) {
-//   newPinMap = document.innerHTML ='<div class=\'pin\' style=\'left:' + offers[k].location['x'] + 'px;' +
-//   'top:' + offers[k].location['y'] + 'px>' + '<img src=' + offers[k].author.avatar +' class=\'rounded\' width=\'40\' height=\'40\'></div>';
-// };
-
-
-var pinOnTheMap = document.querySelector('.tokyo__pin-map');
-var fragment = document.createDocumentFragment();
 for (var q = 0; q < offers.length; q++) {
   var newPinMap = document.createElement('div');
+  var pinWidth = 37.5;
+  var pinHeight = 94;
   newPinMap.classList.add('pin');
-  newPinMap.style.left = offers[q].location['x'] - 37.5 + 'px';
-  newPinMap.style.top = offers[q].location['y'] - 94 + 'px';
+  newPinMap.style.left = offers[q].location['x'] - pinWidth + 'px';
+  newPinMap.style.top = offers[q].location['y'] - pinHeight + 'px';
   newPinMap.innerHTML = '<img src=' + offers[q].author.avatar + ' class =\'rounded\' width = \'40\' height=\'40\'>';
   fragment.appendChild(newPinMap);
 }
@@ -99,20 +93,32 @@ var dialogPanelTemplate = document.getElementById('lodge-template').content;
 
 function createDialogPanel(panel) {
   var dialogPanel = dialogPanelTemplate.cloneNode(true);
+  var lodgeType;
+  if (panel.offer.type === 'flat') {
+    lodgeType = 'Квартира';
+  } else if (panel.offer.type === 'house') {
+    lodgeType = 'Дом';
+  } else {
+    lodgeType = 'Бунгало';
+  }
+
   var fragmentFeatures = document.createDocumentFragment();
   for (var e = 1; e < 3; e++) {
     var newFeatures = document.createElement('span');
     newFeatures.className = 'feature__image feature__image--' + panel.offer.features[e];
     fragmentFeatures.appendChild(newFeatures);
+    dialogPanel.querySelector('.lodge__features').appendChild(fragmentFeatures);
   }
 
   dialogPanel.querySelector('.lodge__title').textContent = panel.offer.title;
   dialogPanel.querySelector('.lodge__address').textContent = panel.offer.address;
-  dialogPanel.querySelector('.lodge__price').textContent = panel.offer.price + &#x20bd;/ночь;
-  dialogPanel.querySelector('.lodge__type').textContent = (panel.offer.guests === 'flat') ? 'Квартира' :
-    (panel.offer.guests === 'bungalo') ? 'Бунгало' : 'house';
-  dialogPanel.querySelector('.lodge__rooms-and-guests').textContent = 'Для' + panel.offer.guests + 'гостей в' +
-    panel.offer.rooms + 'комнатах';
+  dialogPanel.querySelector('.lodge__price').innerHTML = panel.offer.price + ' &#x20bd;/ночь';
+  dialogPanel.querySelector('.lodge__type').textContent = lodgeType;
+  dialogPanel.querySelector('.lodge__rooms-and-guests').textContent = 'Для ' + panel.offer.guests + ' гостей в ' +
+    panel.offer.rooms + ' комнатах';
+  dialogPanel.querySelector('.lodge__checkin-time').textContent = 'Заезд после ' + panel.offer.checkin +
+    ', выезд до ' + panel.offer.checkout;
+
   dialogPanel.querySelector('.lodge__description').textContent = panel.offer.description;
   return dialogPanel;
 }
