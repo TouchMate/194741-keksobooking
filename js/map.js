@@ -22,8 +22,7 @@ function getRandomAmount(paramArray) {
   for (var j = 0; j < randomLength; j++) {
     arr.push(paramArray[Math.floor(Math.random() * paramArray.length) + 1]);
   }
-  // return arr;
-  console.log(arr);
+  return arr;
 }
 
 for (var i = 1; i <= 8; i++) {
@@ -56,7 +55,7 @@ for (var i = 1; i <= 8; i++) {
     }
   });
 }
-console.log(offers.offer.features);
+
 //
 // var newPinMap;
 // for (var k = 0; k < offers.length; k++) {
@@ -99,7 +98,7 @@ function createDialogPanel(panel) {
   return dialogPanel;
 }
 
-
 var fragmentPanel = document.createDocumentFragment();
-fragmentPanel.appendChild(createDialogPanel(offers[i]));
+fragmentPanel.appendChild(createDialogPanel(offers[0]));
 offerDialog.replaceChild(fragmentPanel, offerDialog.children[1]);
+document.querySelector('.dialog__title img').setAttribute('src', offers[0].author.avatar);
