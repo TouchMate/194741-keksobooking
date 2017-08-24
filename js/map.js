@@ -1,6 +1,6 @@
 'use strict';
 
-
+var offers = [];
 var TITLES = ['Большая уютная квартира', 'Маленькая неуютная квартира',
   'Огромный прекрасный дворец', 'Маленький ужасный дворец',
   'Красивый гостевой домик', 'Некрасивый негостеприимный домик',
@@ -10,9 +10,8 @@ var TYPES = ['flat', 'house', 'bungalo'];
 
 var TIMINGS = ['12:00', '13:00', '14:00'];
 
-var FEATURES = ['wifi', 'dishwasher', 'parking',
-  'washer', 'elevator', 'conditioner'];
-var offers = [];
+var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+
 
 function getRandomNumber(min, max) {
   return Math.floor(Math.random() * max - min + 1) + min;
@@ -23,7 +22,8 @@ function getRandomAmount(paramArray) {
   for (var j = 0; j < randomLength; j++) {
     arr.push(paramArray[Math.floor(Math.random() * paramArray.length) + 1]);
   }
-  return arr;
+  // return arr;
+  console.log(arr);
 }
 
 for (var i = 1; i <= 8; i++) {
@@ -44,12 +44,9 @@ for (var i = 1; i <= 8; i++) {
         getRandomNumber(1, 5),
       guests:
         getRandomNumber(1, 10),
-      checkin:
-        TIMINGS[getRandomNumber(1, 3)],
-      checkout:
-        TIMINGS[getRandomNumber(1, 3)],
-      features:
-        FEATURES[getRandomAmount(FEATURES)],
+      checkin: TIMINGS[getRandomNumber(1, 3)],
+      checkout: TIMINGS[getRandomNumber(1, 3)],
+      features: getRandomAmount(FEATURES),
       description: '',
       photos: []
     },
@@ -59,6 +56,7 @@ for (var i = 1; i <= 8; i++) {
     }
   });
 }
+// console.log(offers.offer.features);
 //
 // var newPinMap;
 // for (var k = 0; k < offers.length; k++) {
@@ -78,15 +76,15 @@ for (var q = 0; q < offers.length; q++) {
 }
 pinOnTheMap.appendChild(fragment);
 
-var offerDialog = document.querySelector('.dialog__panel');
+var offerDialog = document.querySelector('#offer-dialog');
 var dialogPanelTemplate = document.getElementById('lodge-template').content;
 
 function createDialogPanel(panel) {
   var dialogPanel = dialogPanelTemplate.cloneNode(true);
   var fragmentFeatures = document.createDocumentFragment();
-  for (var e = 1; e < panel.offer.features.length; e++) {
+  for (var e = 1; e < 3; e++) {
     var newFeatures = document.createElement('span');
-    newFeatures.className = 'feature__image feature__image--' + panel.offer.features[e];
+    newFeatures.className = 'feature__image feature__image--' + offers.offer.features;
     fragmentFeatures.appendChild(newFeatures);
   }
 
@@ -103,5 +101,5 @@ function createDialogPanel(panel) {
 
 
 var fragmentPanel = document.createDocumentFragment();
-fragmentPanel.appendChild(createDialogPanel(offers[0]));
+fragmentPanel.appendChild(createDialogPanel(offers[i]));
 offerDialog.replaceChild(fragmentPanel, offerDialog.children[1]);
