@@ -101,14 +101,12 @@ function foundApartmentType(arr) {
   switch (apartmentTypeEng) {
     case 'flat':
       apartmentTypeRu = 'Квартира';
-      return apartmentTypeRu;
     case 'house':
       apartmentTypeRu = 'Дом';
-      return apartmentTypeRu;
     default:
       apartmentTypeRu = 'Бунгало';
-      return apartmentTypeRu;
   }
+  return apartmentTypeRu;
 }
 
 function createDialogPanel(panel) {
@@ -122,6 +120,7 @@ function createDialogPanel(panel) {
     fragmentFeatures.appendChild(newFeatures);
 
   }
+
   dialogPanel.querySelector('.lodge__title').textContent = panel.offer.title;
   dialogPanel.querySelector('.lodge__address').textContent = panel.offer.address;
   dialogPanel.querySelector('.lodge__price').innerHTML = panel.offer.price + ' &#x20bd;/ночь';
@@ -132,7 +131,7 @@ function createDialogPanel(panel) {
     ', выезд до ' + panel.offer.checkout;
   dialogPanel.querySelector('.lodge__features').appendChild(fragmentFeatures);
   dialogPanel.querySelector('.lodge__description').textContent = panel.offer.description;
-  dialogPanel.querySelector('.dialog__title img').setAttribute('src', offers.author.avatar);
+  dialogPanel.querySelector('.dialog__title img').src = offers.author.avatar;
 
   return dialogPanel;
 }
