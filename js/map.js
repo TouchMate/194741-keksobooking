@@ -114,13 +114,11 @@ function foundApartmentType(arr) {
 function createDialogPanel(panel) {
   var dialogPanel = dialogPanelTemplate.cloneNode(true);
   var lodgeType = foundApartmentType(panel);
-
-  var arrTypesLength = TYPES.length;
-  for (var e = 1; e < arrTypesLength; e++) {
+  var arrFeaturesLength = panel.offer.features.length;
+  for (var e = 0; e < arrFeaturesLength; e++) {
     var newFeatures = document.createElement('span');
     newFeatures.className = 'feature__image feature__image--' + panel.offer.features[e];
     fragmentFeatures.appendChild(newFeatures);
-
   }
 
   dialogPanel.querySelector('.lodge__title').textContent = panel.offer.title;
