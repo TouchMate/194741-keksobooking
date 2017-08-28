@@ -45,7 +45,7 @@ function getRandomAmount(paramArray) {
   var randomLength = getRandomNumber(1, paramArray.length);
   var arr = [];
   var arrayShuffled = shuffle(paramArray);
-  for (var j = 1; j < randomLength; j++) {
+  for (var j = 0; j < randomLength; j++) {
     arr.push(arrayShuffled[j]);
   }
   return arr;
@@ -116,6 +116,7 @@ function createDialogPanel(panel) {
   var lodgeType = foundApartmentType(panel);
   var arrFeaturesLength = panel.offer.features.length;
   for (var e = 0; e < arrFeaturesLength; e++) {
+
     var newFeatures = document.createElement('span');
     newFeatures.className = 'feature__image feature__image--' + panel.offer.features[e];
     fragmentFeatures.appendChild(newFeatures);
