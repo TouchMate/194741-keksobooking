@@ -17,7 +17,7 @@ var pinOnTheMap = document.querySelector('.tokyo__pin-map');
 var fragment = document.createDocumentFragment();
 
 function getRandomNumber(min, max) {
-  return Math.floor(Math.random() * max - min + 1) + min;
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
 function shuffle(arra1) {
   var ctr = arra1.length, temp, index;
@@ -47,7 +47,7 @@ function getRandomAmount(paramArray) {
 
 for (var i = 1; i <= 8; i++) {
   var locationX = getRandomNumber(300, 900);
-  var locationY = getRandomNumber(100, 500);
+  var locationY = getRandomNumber(200, 500);
   offers.push({
     author: {
       avatar: 'img/avatars/user0' + i + '.png',
@@ -82,7 +82,7 @@ for (var q = 0; q < offers.length; q++) {
   var pinHeight = 75;
   newPinMap.classList.add('pin');
   newPinMap.style.left = offers[q].location['x'] - pinWidth / 2 + 'px';
-  newPinMap.style.top = offers[q].location['y'] - pinHeight + 200 + 'px';
+  newPinMap.style.top = offers[q].location['y'] - pinHeight  + 'px';
   newPinMap.innerHTML = '<img src=' + offers[q].author.avatar + ' class =\"rounded\"width=\"40\"height=\"40\">';
   fragment.appendChild(newPinMap);
 }
@@ -91,7 +91,7 @@ pinOnTheMap.appendChild(fragment);
 var offerDialog = document.querySelector('#offer-dialog');
 var dialogPanelTemplate = document.getElementById('lodge-template').content;
 
-function createDialogPanel(panel){
+function createDialogPanel(panel) {
   var dialogPanel = dialogPanelTemplate.cloneNode(true);
   var lodgeType;
   var apartmentTypeEng = panel.offer.type;
@@ -131,9 +131,7 @@ offerDialog.replaceChild(fragmentPanel, offerDialog.children[1]);
 document.querySelector('.dialog__title img').setAttribute('src', offers[0].author.avatar);
 
 
-
-
-/*{
+/* {
   var dialogPanel = dialogPanelTemplate.cloneNode(true);
   var lodgeType;
   if (panel.offer.type === 'flat') {
