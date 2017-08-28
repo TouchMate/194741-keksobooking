@@ -20,7 +20,9 @@ function getRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 function shuffle(arra1) {
-  var ctr = arra1.length, temp, index;
+  var ctr = arra1.length;
+  var temp;
+  var index;
   // While there are elements in the array
   while (ctr > 0) {
     // Pick a random index
@@ -50,7 +52,7 @@ for (var i = 1; i <= 8; i++) {
   var locationY = getRandomNumber(200, 500);
   offers.push({
     author: {
-      avatar: 'img/avatars/user0' + i + '.png',
+      avatar: 'img/avatars/user0' + i + '.png'
     },
     offer: {
       title: TITLES[getRandomNumber(1, 8)],
@@ -82,7 +84,7 @@ for (var q = 0; q < offers.length; q++) {
   var pinHeight = 75;
   newPinMap.classList.add('pin');
   newPinMap.style.left = offers[q].location['x'] - pinWidth / 2 + 'px';
-  newPinMap.style.top = offers[q].location['y'] - pinHeight  + 'px';
+  newPinMap.style.top = offers[q].location['y'] - pinHeight + 'px';
   newPinMap.innerHTML = '<img src=' + offers[q].author.avatar + ' class =\"rounded\"width=\"40\"height=\"40\">';
   fragment.appendChild(newPinMap);
 }
@@ -128,16 +130,4 @@ function createDialogPanel(panel) {
 var fragmentPanel = document.createDocumentFragment();
 fragmentPanel.appendChild(createDialogPanel(offers[0]));
 offerDialog.replaceChild(fragmentPanel, offerDialog.children[1]);
-document.querySelector('.dialog__title img').setAttribute('src', offers[0].author.avatar);
-
-
-/* {
-  var dialogPanel = dialogPanelTemplate.cloneNode(true);
-  var lodgeType;
-  if (panel.offer.type === 'flat') {
-    lodgeType = 'Квартира';
-  } else if (panel.offer.type === 'house') {
-    lodgeType = 'Дом';
-  } else {
-    lodgeType = 'Бунгало';
-  }*/
+document.querySelector('.dialog__title img').setAttribute('src', offers[i].author.avatar);
