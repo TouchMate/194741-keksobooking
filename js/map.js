@@ -95,24 +95,32 @@ function createNewPinMap(object, element) {
     element.appendChild(newPinMap);
   }
 }
-function createDialogPanel(panel) {
-  var dialogPanel = dialogPanelTemplate.cloneNode(true);
-  var lodgeType;
-  var apartmentTypeEng = panel.offer.type;
+function foundApartmentType(typeOfApartment, array) {
+  var apartmentTypeEng = array.offer.type;
   switch (apartmentTypeEng) {
     case 'flat':
-      lodgeType = 'Квартира';
+      typeOfApartment = 'Квартира';
       break;
     case 'house':
-      lodgeType = 'Дом';
+      typeOfApartment = 'Дом';
       break;
-    default:
-      lodgeType = 'Бунгало';
+    case 'bungalo':
+      typeOfApartment = 'Бунгало';
+      break;
   }
-  for (var e = 1; e < TYPES.length; e++) {
+}
+
+function createDialogPanel(panel) {
+  var dialogPanel = dialogPanelTemplate.cloneNode(true);
+  var lodgeType = '';
+  foundApartmentType(lodgeType, panel);
+
+  var arrTypesLength = TYPES.length;
+  for (var e = 1; e < arrTypesLength; e++) {
     var newFeatures = document.createElement('span');
     newFeatures.className = 'feature__image feature__image--' + panel.offer.features[e];
     fragmentFeatures.appendChild(newFeatures);
+
   }
   dialogPanel.querySelector('.lodge__title').textContent = panel.offer.title;
   dialogPanel.querySelector('.lodge__address').textContent = panel.offer.address;
@@ -124,6 +132,8 @@ function createDialogPanel(panel) {
     ', выезд до ' + panel.offer.checkout;
   dialogPanel.querySelector('.lodge__features').appendChild(fragmentFeatures);
   dialogPanel.querySelector('.lodge__description').textContent = panel.offer.description;
+  dialogPanel.querySelector('.dialog__title img').setAttribute('src', offers.author.avatar);
+
 
   return dialogPanel;
 }
@@ -135,6 +145,5 @@ pinOnTheMap.appendChild(fragment);
 var fragmentPanel = document.createDocumentFragment();
 fragmentPanel.appendChild(createDialogPanel(offers[0]));
 offerDialog.replaceChild(fragmentPanel, offerDialog.children[1]);
-document.querySelector('.dialog__title img').setAttribute('src', offers[4].author.avatar);
 
 
