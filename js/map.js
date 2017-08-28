@@ -82,7 +82,7 @@ for (var q = 0; q < offers.length; q++) {
   var pinHeight = 75;
   newPinMap.classList.add('pin');
   newPinMap.style.left = offers[q].location['x'] - pinWidth / 2 + 'px';
-  newPinMap.style.top = offers[q].location['y'] - pinHeight + 'px';
+  newPinMap.style.top = offers[q].location['y'] - pinHeight + 200 + 'px';
   newPinMap.innerHTML = '<img src=' + offers[q].author.avatar + ' class =\"rounded\"width=\"40\"height=\"40\">';
   fragment.appendChild(newPinMap);
 }
@@ -91,17 +91,20 @@ pinOnTheMap.appendChild(fragment);
 var offerDialog = document.querySelector('#offer-dialog');
 var dialogPanelTemplate = document.getElementById('lodge-template').content;
 
-function createDialogPanel(panel) {
+function createDialogPanel(panel){
   var dialogPanel = dialogPanelTemplate.cloneNode(true);
   var lodgeType;
-  if (panel.offer.type === 'flat') {
-    lodgeType = 'Квартира';
-  } else if (panel.offer.type === 'house') {
-    lodgeType = 'Дом';
-  } else {
-    lodgeType = 'Бунгало';
+  var apartmentTypeEng = panel.offer.type;
+  switch (apartmentTypeEng) {
+    case 'flat':
+      lodgeType = 'Квартира';
+      break;
+    case 'house':
+      lodgeType = 'Дом';
+      break;
+    default:
+      lodgeType = 'Бунгало';
   }
-
   var fragmentFeatures = document.createDocumentFragment();
   for (var e = 1; e < 3; e++) {
     var newFeatures = document.createElement('span');
@@ -126,3 +129,17 @@ var fragmentPanel = document.createDocumentFragment();
 fragmentPanel.appendChild(createDialogPanel(offers[0]));
 offerDialog.replaceChild(fragmentPanel, offerDialog.children[1]);
 document.querySelector('.dialog__title img').setAttribute('src', offers[0].author.avatar);
+
+
+
+
+/*{
+  var dialogPanel = dialogPanelTemplate.cloneNode(true);
+  var lodgeType;
+  if (panel.offer.type === 'flat') {
+    lodgeType = 'Квартира';
+  } else if (panel.offer.type === 'house') {
+    lodgeType = 'Дом';
+  } else {
+    lodgeType = 'Бунгало';
+  }*/
