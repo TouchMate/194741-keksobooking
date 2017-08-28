@@ -77,6 +77,9 @@ for (var i = 1; i <= 8; i++) {
     }
   });
 }
+var offerDialog = document.querySelector('#offer-dialog');
+var dialogPanelTemplate = document.getElementById('lodge-template').content;
+var fragmentFeatures = document.createDocumentFragment();
 
 for (var q = 0; q < offers.length; q++) {
   var newPinMap = document.createElement('div');
@@ -85,13 +88,10 @@ for (var q = 0; q < offers.length; q++) {
   newPinMap.classList.add('pin');
   newPinMap.style.left = offers[q].location['x'] - pinWidth / 2 + 'px';
   newPinMap.style.top = offers[q].location['y'] - pinHeight + 'px';
-  newPinMap.innerHTML = '<img src=' + offers[q].author.avatar + ' class =\"rounded\"width=\"40\"height=\"40\">';
+  newPinMap.innerHTML = '<img src=' + offers[q].author.avatar + ' class = "rounded" width= "40" height="40">';
   fragment.appendChild(newPinMap);
 }
 pinOnTheMap.appendChild(fragment);
-
-var offerDialog = document.querySelector('#offer-dialog');
-var dialogPanelTemplate = document.getElementById('lodge-template').content;
 
 function createDialogPanel(panel) {
   var dialogPanel = dialogPanelTemplate.cloneNode(true);
@@ -107,14 +107,12 @@ function createDialogPanel(panel) {
     default:
       lodgeType = 'Бунгало';
   }
-  var fragmentFeatures = document.createDocumentFragment();
+
   for (var e = 1; e < 3; e++) {
     var newFeatures = document.createElement('span');
     newFeatures.className = 'feature__image feature__image--' + panel.offer.features[e];
     fragmentFeatures.appendChild(newFeatures);
-    dialogPanel.querySelector('.lodge__features').appendChild(fragmentFeatures);
   }
-
   dialogPanel.querySelector('.lodge__title').textContent = panel.offer.title;
   dialogPanel.querySelector('.lodge__address').textContent = panel.offer.address;
   dialogPanel.querySelector('.lodge__price').innerHTML = panel.offer.price + ' &#x20bd;/ночь';
@@ -123,7 +121,9 @@ function createDialogPanel(panel) {
     panel.offer.rooms + ' комнатах';
   dialogPanel.querySelector('.lodge__checkin-time').textContent = 'Заезд после ' + panel.offer.checkin +
     ', выезд до ' + panel.offer.checkout;
+  dialogPanel.querySelector('.lodge__features').appendChild(fragmentFeatures);
   dialogPanel.querySelector('.lodge__description').textContent = panel.offer.description;
+
   return dialogPanel;
 }
 
