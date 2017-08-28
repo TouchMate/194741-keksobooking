@@ -60,18 +60,18 @@ function createArray(arrElement) {
         avatar: 'img/avatars/user0' + i + '.png'
       },
       offer: {
-        title: TITLES[getRandomNumber(1, 8)],
+        title: TITLES[getRandomNumber(0, 7)],
         address: locationX + ', ' + locationY,
         price:
           getRandomNumber(1000, 1000000),
         type:
-          TYPES[getRandomNumber(1, 2)],
+          TYPES[getRandomNumber(0, 2)],
         rooms:
           getRandomNumber(1, 5),
         guests:
           getRandomNumber(1, 10),
-        checkin: TIMINGS[getRandomNumber(1, 2)],
-        checkout: TIMINGS[getRandomNumber(1, 2)],
+        checkin: TIMINGS[getRandomNumber(0, 2)],
+        checkout: TIMINGS[getRandomNumber(0, 2)],
         features: getRandomAmount(FEATURES),
         description: '',
         photos: []
