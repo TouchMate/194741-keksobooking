@@ -80,8 +80,8 @@ for (var i = 1; i <= 8; i++) {
 var offerDialog = document.querySelector('#offer-dialog');
 var dialogPanelTemplate = document.getElementById('lodge-template').content;
 var fragmentFeatures = document.createDocumentFragment();
-
-for (var q = 0; q < offers.length; q++) {
+var arrLength = offers.length;
+for (var q = 0; q < arrLength; q++) {
   var newPinMap = document.createElement('div');
   var pinWidth = 56;
   var pinHeight = 75;
