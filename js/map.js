@@ -16,6 +16,10 @@ var pinOnTheMap = document.querySelector('.tokyo__pin-map');
 
 var fragment = document.createDocumentFragment();
 
+var offerDialog = document.querySelector('#offer-dialog');
+var dialogPanelTemplate = document.getElementById('lodge-template').content;
+var fragmentFeatures = document.createDocumentFragment();
+
 function getRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
@@ -47,52 +51,50 @@ function getRandomAmount(paramArray) {
   return arr;
 }
 
-for (var i = 1; i <= 8; i++) {
-  var locationX = getRandomNumber(300, 900);
-  var locationY = getRandomNumber(200, 500);
-  offers.push({
-    author: {
-      avatar: 'img/avatars/user0' + i + '.png'
-    },
-    offer: {
-      title: TITLES[getRandomNumber(1, 8)],
-      address: locationX + ', ' + locationY,
-      price:
-        getRandomNumber(1000, 1000000),
-      type:
-        TYPES[getRandomNumber(1, 2)],
-      rooms:
-        getRandomNumber(1, 5),
-      guests:
-        getRandomNumber(1, 10),
-      checkin: TIMINGS[getRandomNumber(1, 2)],
-      checkout: TIMINGS[getRandomNumber(1, 2)],
-      features: getRandomAmount(FEATURES),
-      description: '',
-      photos: []
-    },
-    location: {
-      x: locationX,
-      y: locationY
-    }
-  });
+function createArray(arrElement) {
+  for (var i = 1; i <= 8; i++) {
+    var locationX = getRandomNumber(300, 900);
+    var locationY = getRandomNumber(200, 500);
+    arrElement.push({
+      author: {
+        avatar: 'img/avatars/user0' + i + '.png'
+      },
+      offer: {
+        title: TITLES[getRandomNumber(1, 8)],
+        address: locationX + ', ' + locationY,
+        price:
+          getRandomNumber(1000, 1000000),
+        type:
+          TYPES[getRandomNumber(1, 2)],
+        rooms:
+          getRandomNumber(1, 5),
+        guests:
+          getRandomNumber(1, 10),
+        checkin: TIMINGS[getRandomNumber(1, 2)],
+        checkout: TIMINGS[getRandomNumber(1, 2)],
+        features: getRandomAmount(FEATURES),
+        description: '',
+        photos: []
+      },
+      location: {
+        x: locationX,
+        y: locationY
+      }
+    });
+  }
 }
-var offerDialog = document.querySelector('#offer-dialog');
-var dialogPanelTemplate = document.getElementById('lodge-template').content;
-var fragmentFeatures = document.createDocumentFragment();
-var arrLength = offers.length;
-for (var q = 0; q < arrLength; q++) {
-  var newPinMap = document.createElement('div');
-  var pinWidth = 56;
-  var pinHeight = 75;
-  newPinMap.classList.add('pin');
-  newPinMap.style.left = offers[q].location['x'] - pinWidth / 2 + 'px';
-  newPinMap.style.top = offers[q].location['y'] - pinHeight + 'px';
-  newPinMap.innerHTML = '<img src=' + offers[q].author.avatar + ' class = "rounded" width= "40" height="40">';
-  fragment.appendChild(newPinMap);
+function createNewPinMap(object, element) {
+  for (var q = 0; q < object.length; q++) {
+    var newPinMap = document.createElement('div');
+    var pinWidth = 56;
+    var pinHeight = 75;
+    newPinMap.classList.add('pin');
+    newPinMap.style.left = offers[q].location['x'] - pinWidth / 2 + 'px';
+    newPinMap.style.top = offers[q].location['y'] - pinHeight + 'px';
+    newPinMap.innerHTML = '<img src=' + offers[q].author.avatar + ' class = "rounded" width= "40" height="40">';
+    element.appendChild(newPinMap);
+  }
 }
-pinOnTheMap.appendChild(fragment);
-
 function createDialogPanel(panel) {
   var dialogPanel = dialogPanelTemplate.cloneNode(true);
   var lodgeType;
@@ -107,8 +109,7 @@ function createDialogPanel(panel) {
     default:
       lodgeType = 'Бунгало';
   }
-
-  for (var e = 1; e < 3; e++) {
+  for (var e = 1; e < TYPES.length; e++) {
     var newFeatures = document.createElement('span');
     newFeatures.className = 'feature__image feature__image--' + panel.offer.features[e];
     fragmentFeatures.appendChild(newFeatures);
@@ -127,7 +128,13 @@ function createDialogPanel(panel) {
   return dialogPanel;
 }
 
+createArray(offers);
+createNewPinMap(offers, fragment);
+pinOnTheMap.appendChild(fragment);
+
 var fragmentPanel = document.createDocumentFragment();
 fragmentPanel.appendChild(createDialogPanel(offers[0]));
 offerDialog.replaceChild(fragmentPanel, offerDialog.children[1]);
-document.querySelector('.dialog__title img').setAttribute('src', offers[i].author.avatar);
+document.querySelector('.dialog__title img').setAttribute('src', offers[4].author.avatar);
+
+
