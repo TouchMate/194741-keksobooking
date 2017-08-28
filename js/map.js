@@ -91,7 +91,7 @@ function createNewPinMap(object, element) {
     newPinMap.classList.add('pin');
     newPinMap.style.left = offers[q].location['x'] - pinWidth / 2 + 'px';
     newPinMap.style.top = offers[q].location['y'] - pinHeight + 'px';
-    newPinMap.innerHTML = '<img src=' + offers[q].author.avatar + ' class = "rounded" width= "40" height="40">';
+    newPinMap.innerHTML = '<img src="' + offers[q].author.avatar + '" class="rounded" width="40" height="40"/>';
     element.appendChild(newPinMap);
   }
 }
