@@ -95,25 +95,25 @@ function createNewPinMap(object, element) {
     element.appendChild(newPinMap);
   }
 }
-function foundApartmentType(typeOfApartment, array) {
-  var apartmentTypeEng = array.offer.type;
+function foundApartmentType(arr) {
+  var apartmentTypeEng = arr.offer.type;
+  var apartmentTypeRu = '';
   switch (apartmentTypeEng) {
     case 'flat':
-      typeOfApartment = 'Квартира';
-      break;
+      apartmentTypeRu = 'Квартира';
+      return apartmentTypeRu;
     case 'house':
-      typeOfApartment = 'Дом';
-      break;
-    case 'bungalo':
-      typeOfApartment = 'Бунгало';
-      break;
+      apartmentTypeRu = 'Дом';
+      return apartmentTypeRu;
+    default:
+      apartmentTypeRu = 'Бунгало';
+      return apartmentTypeRu;
   }
 }
 
 function createDialogPanel(panel) {
   var dialogPanel = dialogPanelTemplate.cloneNode(true);
-  var lodgeType = '';
-  foundApartmentType(lodgeType, panel);
+  var lodgeType = foundApartmentType(panel);
 
   var arrTypesLength = TYPES.length;
   for (var e = 1; e < arrTypesLength; e++) {
@@ -134,14 +134,12 @@ function createDialogPanel(panel) {
   dialogPanel.querySelector('.lodge__description').textContent = panel.offer.description;
   dialogPanel.querySelector('.dialog__title img').setAttribute('src', offers.author.avatar);
 
-
   return dialogPanel;
 }
 
 createArray(offers);
 createNewPinMap(offers, fragment);
 pinOnTheMap.appendChild(fragment);
-
 var fragmentPanel = document.createDocumentFragment();
 fragmentPanel.appendChild(createDialogPanel(offers[0]));
 offerDialog.replaceChild(fragmentPanel, offerDialog.children[1]);
