@@ -101,8 +101,10 @@ function foundApartmentType(arr) {
   switch (apartmentTypeEng) {
     case 'flat':
       apartmentTypeRu = 'Квартира';
+      break;
     case 'house':
       apartmentTypeRu = 'Дом';
+      break;
     default:
       apartmentTypeRu = 'Бунгало';
   }
@@ -131,7 +133,7 @@ function createDialogPanel(panel) {
     ', выезд до ' + panel.offer.checkout;
   dialogPanel.querySelector('.lodge__features').appendChild(fragmentFeatures);
   dialogPanel.querySelector('.lodge__description').textContent = panel.offer.description;
-  dialogPanel.querySelector('.dialog__title img').src = offers.author.avatar;
+  offerDialog.querySelector('.dialog__title img').src = panel.author.avatar;
 
   return dialogPanel;
 }
