@@ -58,13 +58,13 @@ for (var i = 1; i <= 8; i++) {
       price:
         getRandomNumber(1000, 1000000),
       type:
-        TYPES[getRandomNumber(1, 3)],
+        TYPES[getRandomNumber(1, 2)],
       rooms:
         getRandomNumber(1, 5),
       guests:
         getRandomNumber(1, 10),
-      checkin: TIMINGS[getRandomNumber(1, 3)],
-      checkout: TIMINGS[getRandomNumber(1, 3)],
+      checkin: TIMINGS[getRandomNumber(1, 2)],
+      checkout: TIMINGS[getRandomNumber(1, 2)],
       features: getRandomAmount(FEATURES),
       description: '',
       photos: []
@@ -78,12 +78,12 @@ for (var i = 1; i <= 8; i++) {
 
 for (var q = 0; q < offers.length; q++) {
   var newPinMap = document.createElement('div');
-  var pinWidth = 37.5;
-  var pinHeight = 94;
+  var pinWidth = 56;
+  var pinHeight = 75;
   newPinMap.classList.add('pin');
-  newPinMap.style.left = offers[q].location['x'] - pinWidth + 'px';
+  newPinMap.style.left = offers[q].location['x'] - pinWidth / 2 + 'px';
   newPinMap.style.top = offers[q].location['y'] - pinHeight + 'px';
-  newPinMap.innerHTML = '<img src=' + offers[q].author.avatar + ' class =\'rounded\' width = \'40\' height=\'40\'>';
+  newPinMap.innerHTML = '<img src=' + offers[q].author.avatar + ' class =\"rounded\"width=\"40\"height=\"40\">';
   fragment.appendChild(newPinMap);
 }
 pinOnTheMap.appendChild(fragment);
@@ -118,7 +118,6 @@ function createDialogPanel(panel) {
     panel.offer.rooms + ' комнатах';
   dialogPanel.querySelector('.lodge__checkin-time').textContent = 'Заезд после ' + panel.offer.checkin +
     ', выезд до ' + panel.offer.checkout;
-
   dialogPanel.querySelector('.lodge__description').textContent = panel.offer.description;
   return dialogPanel;
 }
