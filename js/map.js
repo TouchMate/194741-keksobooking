@@ -40,7 +40,6 @@ function shuffle(arra1) {
   }
   return arra1;
 }
-
 function getRandomAmount(paramArray) {
   var randomLength = getRandomNumber(1, paramArray.length);
   var arr = [];
@@ -50,7 +49,6 @@ function getRandomAmount(paramArray) {
   }
   return arr;
 }
-
 function createArray(arrElement) {
   for (var i = 1; i <= 8; i++) {
     var locationX = getRandomNumber(300, 900);
@@ -110,18 +108,15 @@ function foundApartmentType(arr) {
   }
   return apartmentTypeRu;
 }
-
 function createDialogPanel(panel) {
   var dialogPanel = dialogPanelTemplate.cloneNode(true);
   var lodgeType = foundApartmentType(panel);
   var arrFeaturesLength = panel.offer.features.length;
   for (var e = 0; e < arrFeaturesLength; e++) {
-
     var newFeatures = document.createElement('span');
     newFeatures.className = 'feature__image feature__image--' + panel.offer.features[e];
     fragmentFeatures.appendChild(newFeatures);
   }
-
   dialogPanel.querySelector('.lodge__title').textContent = panel.offer.title;
   dialogPanel.querySelector('.lodge__address').textContent = panel.offer.address;
   dialogPanel.querySelector('.lodge__price').innerHTML = panel.offer.price + ' &#x20bd;/ночь';
@@ -133,15 +128,11 @@ function createDialogPanel(panel) {
   dialogPanel.querySelector('.lodge__features').appendChild(fragmentFeatures);
   dialogPanel.querySelector('.lodge__description').textContent = panel.offer.description;
   offerDialog.querySelector('.dialog__title img').src = panel.author.avatar;
-
   return dialogPanel;
 }
-
 createArray(offers);
 createNewPinMap(offers, fragment);
 pinOnTheMap.appendChild(fragment);
-var fragmentPanel = document.createDocumentFragment();
-fragmentPanel.appendChild(createDialogPanel(offers[0]));
-offerDialog.replaceChild(fragmentPanel, offerDialog.children[1]);
+offerDialog.replaceChild(createDialogPanel(offers[0]), offerDialog.children[1]);
 
 
